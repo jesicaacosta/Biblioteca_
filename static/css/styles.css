@@ -1,0 +1,434 @@
+/* CSS HEX 
+--ultra-violet: #6b5592ff;
+--platinum: #d5dcd8ff;
+--ghost-white: #ededf4ff;
+--marian-blue: #063f8cff;
+--lavender-web: #d5cedcff;
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #e2e4f6;
+}
+
+h1,
+h2 {
+  color: #e7c8dd;
+  margin-left: 30px;
+}
+
+/* Carrusel */
+.carousel-inner img {
+  height: 70vh;
+  object-fit: cover;
+  filter: brightness(80%);
+}
+
+.carousel-caption h5 {
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-caption p {
+  color: #ddd;
+}
+
+/* Texto de Bienvenida */
+section h2 {
+  color: #86626e;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+section p {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.name_page {
+  font-size: 2.5rem;
+  font-family: "Georgia", serif;
+  text-align: center;
+  color: #86626e;
+  background-color: #e7c8dd;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  letter-spacing: 1.5px; /* Espacio entre letras*/
+  text-transform: uppercase;
+  height: 15vh;
+  align-content: center;
+}
+
+/* Estilos para la secc de recomendaciones de libros desde la API */
+#recomendaciones {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1200px; /* Limite el ancho del contenedor */
+}
+
+.recomendaciones {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(250px, 1fr)
+  ); /* Múltiples columnas de tarjetas que se ajustan */
+  gap: 20px; /* Espacio entre las tarjetas */
+}
+
+.libro-recomendado {
+  background-color: var(--ghost-white); /* llamo a la variable */
+  border: 1px solid var(--platinum);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.3s, box-shadow 0.3s; /* Efecto de hover */
+}
+
+.libro-recomendado:hover {
+  transform: translateY(-5px); /* Eleva la tarjeta al pasar el cursor */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.libro-recomendado h3 {
+  color: var(--ultra-violet);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.libro-recomendado p {
+  color: #444;
+  margin-bottom: 5px;
+}
+
+.descripcion-libros {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 10px;
+  max-height: 200px; /*altura max de 50px */
+  overflow: scroll;
+}
+
+.libro-recomendado img {
+  max-width: 100%; /* img se ajustan al contenedor */
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.form_agregar_libro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form_agregar_libro form {
+  width: 60%;
+  margin-right: 20px;
+}
+.form_agregar_libro p {
+  font-size: 0.9em;
+  margin: 0 auto;
+  color: #80757f;
+}
+
+.form_agregar_libro img {
+  width: 45%; /* Tamaño en pantallas grandes */
+  height: 65vh;
+  max-width: 90%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .form_agregar_libro {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form_agregar_libro form {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .form_agregar_libro img {
+    width: 90%;
+    height: 50vh;
+    margin-top: 20px;
+  }
+}
+
+input,
+textarea {
+  display: block;
+  margin-bottom: 5px;
+  padding: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.input_form {
+  margin: 5px 0;
+  border: 2px solid #defffc;
+}
+
+.myButtonAnimado {
+  box-shadow: inset 0px 1px 0px 0px #80757f;
+  background-color: #e2e4f6;
+  color: #86626e;
+  border-radius: 6px;
+  border: 1px solid #defffc;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+}
+.myButtonAnimado:hover {
+  background-color: #86626e;
+  color: white;
+}
+.myButtonAnimado:active {
+  position: relative;
+  top: 1px;
+}
+
+/* Estilos para cada libro dentro de la lista */
+/* Contenedor principal para las tarjetas de libros */
+.ul_libros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres tarjetas por fila */
+  gap: 20px; /* Espacio entre cada tarjeta */
+  list-style-type: none; /*Que no tenga los puntos */
+  padding: 10px;
+  height: auto;
+}
+
+.ul_libros li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Ajustes para dispositivos más pequeños */
+@media (max-width: 1024px) {
+  .ul_libros {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Dos tarjetas por fila en pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .ul_libros {
+    grid-template-columns: 1fr; /* Una tarjeta por fila en pantallas pequeñas */
+  }
+}
+
+/* Estilos para los elementos dentro de cada libro */
+
+.li_libros {
+  border: 2px solid red;
+  width: 45vw;
+}
+
+.ul_libros .titulo {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #444;
+}
+
+/*ESTILÑOS PARA EDITAR.HTML*/
+
+.body_editar {
+  font-family: "Roboto", sans-serif;
+  background-color: #e2e4f6;
+  color: #444;
+}
+
+.h1_editar {
+  text-align: center;
+  color: #86626e;
+  font-size: 2.2rem;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.form_editar {
+  max-width: 500px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+}
+
+.form_editar div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form_editar div label {
+  flex: 1;
+  font-weight: bold;
+  color: #86626e;
+}
+
+.form_editar div input,
+.form_editar div textarea {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.input_editar:focus,
+.textarea_editar:focus {
+  outline: none;
+  border-color: #86626e;
+  box-shadow: 0 0 5px rgba(134, 98, 110, 0.3);
+}
+
+.textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+/* Botón de actualizar */
+button.myButtonAnimado_editar {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #86626e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+button.myButtonAnimado_editar:hover {
+  background-color: #5f4551;
+}
+
+/* Iconos de cada campo */
+.form_editar div::before {
+  content: "";
+  display: inline-block;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+}
+
+.form_editar div#titulo::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/book.png");
+}
+.form_editar div#autor::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/pen.png");
+}
+.form_editar div#estrellas::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/star.png");
+}
+.form_editar div#comienzo_de_lectura::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/calendar.png");
+}
+.form_editar div#fin_de_lectura::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/calendar--v1.png");
+}
+.form_editar div#descripcion::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/align-text-left.png");
+}
+
+/* Mejorar diseño en dispositivos móviles */
+@media (max-width: 768px) {
+  form {
+    padding: 15px;
+  }
+
+  h1_editar {
+    font-size: 1.8rem;
+  }
+
+  button.myButtonAnimado_editar {
+    font-size: 0.9rem;
+  }
+}
+
+/*FOOTER*/
+
+/* Estilos del Footer */
+.footer {
+  background-color: #6b5592ff;
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-info {
+  flex: 1 1 250px;
+  margin: 10px;
+}
+
+.footer-social {
+  flex: 1 1 250px;
+  margin: 10px;
+}
+
+.footer-info h3,
+.footer-social h4 {
+  color: #d5dcd8;
+  margin-bottom: 10px;
+}
+
+.footer-social a {
+  color: #ffffff;
+  font-size: 1.5em;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: #f39c12;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.8em;
+  color: #cccccc;
+}
