@@ -17,9 +17,9 @@ def index():
         response3 = requests.get("https://www.googleapis.com/books/v1/volumes?q=García+Lorca&maxResults=2&langRestrict=es&orderBy=relevance") #tercer recomend
         recomendaciones = [] #creo lista 
         if response.status_code == 200:
-            recomendaciones.extend(response.json().get("items", [])) # extends m,e permite agregar múltiples elementos a la lista recomendaciones desde las respuestas JSON obtenidas
+            recomendaciones.extend(response.json().get("items", [])) #response convierte la respuesta en JSON, extend permite q sean multiples elementos
         if response2.status_code == 200:
-            recomendaciones.extend(response2.json().get("items", []))
+            recomendaciones.extend(response2.json().get("items", [])) 
         if response3.status_code == 200:
             recomendaciones.extend(response3.json().get("items", []))
         if not recomendaciones:
