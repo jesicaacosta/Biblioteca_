@@ -1,5 +1,5 @@
-import os #se utiliza para construir rutas de archivos de manera compatible con cualquier so, me sirve para que
-#al guardar imágenes en una ubicacion especifica del servidor
+#import os #se utiliza para construir rutas de archivos de manera compatible con cualquier so, me sirve para que
+#al guardar img en una ubicacion especifica del servidor
 from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 # request maneja solicitud que recibe tu servidor, requests es para cuando necesito enviar una solicitud a otro servidor o API para obtener datos.
