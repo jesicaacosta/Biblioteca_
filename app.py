@@ -1,45 +1,57 @@
-#import os #se utiliza para construir rutas de archivos de manera compatible con cualquier so, me sirve para que
-#al guardar img en una ubicacion especifica del servidor
+#import os #se utiliza para construir rutas de archivos de manera compatible con cualquier so
 from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 # request maneja solicitud que recibe tu servidor, requests es para cuando necesito enviar una solicitud a otro servidor o API para obtener datos.
+from funciones import  agregar_libro, actualizar_libro, eliminar_libro, obtener_libros
+from db import conectar
 
-from biblioteca import biblioteca, mostrar_libros, agregar_libro, actualizar_libro, eliminar_libro
 
 app = Flask(__name__)
 
+libros = []
+
 @app.route('/') #ruta principal del programa
 def index(): 
-    if len(biblioteca) == 0:
+    if len(libros) == 0:
         # Si no hay libros, obtener recomendaciones
         response = requests.get("https://www.googleapis.com/books/v1/volumes?q=Mariana+Enriquez&maxResults=2&langRestrict=es&orderBy=relevance") #primer recomendacion 
         response2 = requests.get("https://www.googleapis.com/books/v1/volumes?q=Jennifer+Armentrout&maxResults=2&langRestrict=es&orderBy=relevance") #segunda recomend
-        response3 = requests.get("https://www.googleapis.com/books/v1/volumes?q=García+Lorca&maxResults=2&langRestrict=es&orderBy=relevance") #tercer recomend
         recomendaciones = [] #creo lista 
         if response.status_code == 200:
             recomendaciones.extend(response.json().get("items", [])) #response convierte la respuesta en JSON, extend permite q sean multiples elementos
         if response2.status_code == 200:
             recomendaciones.extend(response2.json().get("items", [])) 
-        if response3.status_code == 200:
-            recomendaciones.extend(response3.json().get("items", []))
         if not recomendaciones:
             print('No se obtuvo resultado.')
         return render_template("index.html", biblioteca=[], recomendaciones=recomendaciones)
     else:
         return render_template("index.html", biblioteca=biblioteca, recomendaciones=[])
+    
+    
+    
+@app.route('/biblioteca')
+def biblioteca():
+    libros = obtener_libros()
+    return render_template("index.html", libros=libros)
 
-@app.route('/agregar', methods=['POST'])
-def agregar(): #defino la funcion agregar 
+
+@app.route('/agregar_libro', methods=['POST'])
+def agregar_libro_route():
+    # Obtén los datos del formulario
     libro = {
-            'titulo': request.form['titulo'], #request es objeto qe tiene los datos del form q completo el user
-            'autor': request.form['autor'],
-            'estrellas': request.form['estrellas'],
-            'comienzo_de_lectura': request.form['comienzo_de_lectura'],
-            'fin_de_lectura': request.form['fin_de_lectura'],
-            'descripcion': request.form['descripcion']
-        }
+        'titulo': request.form['titulo'],
+        'autor': request.form['autor'],
+        'estrellas': request.form['estrellas'],
+        'comienzo_de_lectura': request.form['comienzo_de_lectura'],
+        'fin_de_lectura': request.form['fin_de_lectura'],
+        'descripcion': request.form['descripcion']
+    }
+    
+    # Llama a la función para agregar el libro a la base de datos
     agregar_libro(libro)
-    return redirect(url_for('index'))#redirige al user al menu principal
+    
+    # Redirige al index
+    return redirect(url_for('index'))
 
 
 #----------- Funcion ELIMINAR
@@ -66,13 +78,16 @@ def editar_libro(index):
         return redirect(url_for('index'))  #genera con flask la ruta para index y la retorna, retorna index
     
     # Si es un GET, muestra el libro a editar
-    libro_a_editar = biblioteca[index]
+    libro_a_editar = libros[index]
     return render_template('editar.html', libro=libro_a_editar, index=index)
 
 
 def actualizar_datos_libro(index, libro_actualizado):
-    # Aquí implementas la lógica para actualizar el libro en la biblioteca
-    biblioteca[index] = libro_actualizado
+    # actualizar el libro en la biblioteca
+    libros[index] = libro_actualizado
+
+
+print(libros)
 
 
 

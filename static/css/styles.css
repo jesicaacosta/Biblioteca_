@@ -71,7 +71,6 @@ section p {
 
 /* Estilos para la secc de recomendaciones de libros desde la API */
 #recomendaciones {
-  padding: 20px;
   margin: 20px auto;
   max-width: 1200px; /* Limite el ancho del contenedor */
 }
@@ -112,10 +111,11 @@ section p {
 
 .descripcion-libros {
   font-size: 0.8rem;
+  height: 300px;
   color: #666;
   margin-top: 10px;
-  max-height: 200px; /*altura max de 50px */
-  overflow: scroll;
+  overflow-y: auto;
+
 }
 
 .libro-recomendado img {
@@ -431,4 +431,9 @@ button.myButtonAnimado_editar:hover {
   margin: 0;
   font-size: 0.8em;
   color: #cccccc;
+}
+
+
+.section_libros{
+    background-color: lightcoral;
 }
